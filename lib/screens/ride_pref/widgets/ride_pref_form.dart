@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
- 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:week_3_blabla_project/screens/ride_pref/widgets/bla_swap_location_button.dart';
+import 'package:week_3_blabla_project/widgets/actions/bla_search_button.dart';
+import 'package:week_3_blabla_project/widgets/display/bla_divider.dart';
+import 'package:week_3_blabla_project/screens/ride_pref/widgets/bla_form_input.dart';
+
 import '../../../model/ride/locations.dart';
 import '../../../model/ride_pref/ride_pref.dart';
- 
+
 ///
 /// A Ride Preference From is a view to select:
 ///   - A depcarture location
@@ -27,8 +32,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
   late DateTime departureDate;
   Location? arrival;
   late int requestedSeats;
-
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // ----------------------------------
   // Initialize the Form attributes
@@ -37,29 +41,54 @@ class _RidePrefFormState extends State<RidePrefForm> {
   @override
   void initState() {
     super.initState();
-    // TODO 
+    // TODO
   }
 
   // ----------------------------------
   // Handle events
   // ----------------------------------
- 
 
   // ----------------------------------
   // Compute the widgets rendering
   // ----------------------------------
-  
 
   // ----------------------------------
   // Build the widgets
   // ----------------------------------
   @override
   Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [ 
- 
-        ]);
+    return Form(
+      key: _formKey,
+      child: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              BlaFormInput(
+                iconData: FontAwesomeIcons.circle,
+                label: Location(name: 'Paris', country: Country.france).name,
+              ),
+              BlaDivider(),
+              BlaFormInput(
+                iconData: FontAwesomeIcons.circle,
+                label: Location(name: 'Paris', country: Country.france).name,
+              ),
+              BlaDivider(),
+              BlaFormInput(
+                  iconData: FontAwesomeIcons.solidCalendarDays,
+                  label: '12-30-2025'),
+              BlaDivider(),
+              // BlaPassengerSelector(),
+              BlaFormInput(iconData: FontAwesomeIcons.user, label: '1'),
+              BlaSearchButton(
+                ontTap: () {},
+              )
+            ],
+          ),
+          BlaSwapLocationButton()
+        ],
+      ),
+    );
   }
 }

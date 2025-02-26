@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:week_3_blabla_project/widgets/actions/bla_button.dart';
-
 import '../../model/ride_pref/ride_pref.dart';
 import '../../service/ride_prefs_service.dart';
 import '../../theme/theme.dart';
@@ -59,23 +57,19 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
                       initRidePref: RidePrefService.currentRidePref,
                     ),
                     SizedBox(height: BlaSpacings.m),
-
-                    // 2.2 Optionally display a list of past preferences
-                    SizedBox(
-                      height: 200, // Set a fixed height
-                      child: ListView.builder(
-                        shrinkWrap: true, // Fix ListView height issue
-                        physics: AlwaysScrollableScrollPhysics(),
-                        itemCount: RidePrefService.ridePrefsHistory.length,
-                        itemBuilder: (ctx, index) => RidePrefHistoryTile(
-                          ridePref: RidePrefService.ridePrefsHistory[index],
-                          onPressed: () => onRidePrefSelected(
-                              RidePrefService.ridePrefsHistory[index]),
-                        ),
-                      ),
-                    ),
-                    
                   ],
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true, // Fix ListView height issue
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount: RidePrefService.ridePrefsHistory.length,
+                  itemBuilder: (ctx, index) => RidePrefHistoryTile(
+                    ridePref: RidePrefService.ridePrefsHistory[index],
+                    onPressed: () => onRidePrefSelected(
+                        RidePrefService.ridePrefsHistory[index]),
+                  ),
                 ),
               ),
             ],
