@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:week_3_blabla_project/screens/ride_pref/bla_custom_location_picker.dart';
 import 'package:week_3_blabla_project/screens/ride_pref/widgets/bla_swap_location_button.dart';
+import 'package:week_3_blabla_project/utils/animations_util.dart';
 import 'package:week_3_blabla_project/widgets/actions/bla_search_button.dart';
 import 'package:week_3_blabla_project/widgets/display/bla_divider.dart';
 import 'package:week_3_blabla_project/screens/ride_pref/widgets/bla_form_input.dart';
@@ -38,6 +40,9 @@ class _RidePrefFormState extends State<RidePrefForm> {
   // Initialize the Form attributes
   // ----------------------------------
 
+  Location? departureLocation;
+  Location? arrivalLocation;
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +52,18 @@ class _RidePrefFormState extends State<RidePrefForm> {
   // ----------------------------------
   // Handle events
   // ----------------------------------
+  void onSelectLeavingFromLocation() async {
+    // showSearch(context: context, delegate: BlaLocationSearchDelegate());
+    departureLocation = await Navigator.of(context).push<Location>(
+        AnimationUtils.createBottomToTopRoute(BlaCustomLocationPicker()));
+    setState(() {});
+  }
+  void onSelectGoingToLocation() async {
+    // showSearch(context: context, delegate: BlaLocationSearchDelegate());
+    arrivalLocation = await Navigator.of(context).push<Location>(
+        AnimationUtils.createBottomToTopRoute(BlaCustomLocationPicker()));
+    setState(() {});
+  }
 
   // ----------------------------------
   // Compute the widgets rendering
@@ -67,26 +84,37 @@ class _RidePrefFormState extends State<RidePrefForm> {
             children: [
               BlaFormInput(
                 iconData: FontAwesomeIcons.circle,
-                label: Location(name: 'Paris', country: Country.france).name,
+                label: Location(
+                        name: departureLocation?.name ?? 'Leaving From',
+                        country: Country.france)
+                    .name,
+                callback: onSelectLeavingFromLocation,
+                action: BlaSwapLocationButton(),
               ),
               BlaDivider(),
               BlaFormInput(
                 iconData: FontAwesomeIcons.circle,
-                label: Location(name: 'Paris', country: Country.france).name,
+                label: Location(name: arrivalLocation?.name ?? 'Going to', country: Country.france).name,
+                callback: onSelectGoingToLocation,
               ),
               BlaDivider(),
               BlaFormInput(
-                  iconData: FontAwesomeIcons.solidCalendarDays,
-                  label: '12-30-2025'),
+                iconData: FontAwesomeIcons.solidCalendarDays,
+                label: '12-30-2025',
+                callback: () {},
+              ),
               BlaDivider(),
               // BlaPassengerSelector(),
-              BlaFormInput(iconData: FontAwesomeIcons.user, label: '1'),
+              BlaFormInput(
+                iconData: FontAwesomeIcons.user,
+                label: '1',
+                callback: () {},
+              ),
               BlaSearchButton(
                 ontTap: () {},
               )
             ],
           ),
-          BlaSwapLocationButton()
         ],
       ),
     );

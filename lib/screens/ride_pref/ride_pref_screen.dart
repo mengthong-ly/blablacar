@@ -38,12 +38,13 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
             children: [
               SizedBox(height: 16),
               Text(
-                "Your pick of rides at low price",
+                "Your pick of rides\nat low price",
                 style: BlaTextStyles.heading.copyWith(color: Colors.white),
+                textAlign: TextAlign.center,
               ),
-              SizedBox(height: 100),
+              SizedBox(height:50),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: BlaSpacings.xxl),
+                margin: EdgeInsets.symmetric(horizontal: BlaSpacings.l),
                 decoration: BoxDecoration(
                   color: Colors.white, // White background
                   borderRadius: BorderRadius.circular(16), // Rounded corners
