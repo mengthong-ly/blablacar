@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:week_3_blabla_project/screens/rides/widgets/ride_pref_bar.dart';
+import 'package:week_3_blabla_project/screens/ride/widgets/ride_pref_bar.dart';
+import 'package:week_3_blabla_project/screens/ride/widgets/ride_tile.dart';
  
 import '../../dummy_data/dummy_data.dart';
 import '../../model/ride/ride.dart';
@@ -7,7 +8,6 @@ import '../../model/ride_pref/ride_pref.dart';
 import '../../service/rides_service.dart';
 import '../../theme/theme.dart';
  
-import 'widgets/rides_tile.dart';
 
 ///
 ///  The Ride Selection screen allow user to select a ride, once ride preferences have been defined.

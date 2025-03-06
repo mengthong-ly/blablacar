@@ -29,7 +29,7 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
     super.initState();
 
     if (widget.initLocation != null) {
-      filteredLocations = getLocationsFor(widget.initLocation!.name);
+      // filteredLocations = getLocationsFor(widget.initLocation!.name);
     }
   }
 
@@ -55,7 +55,7 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
   }
 
   List<Location> getLocationsFor(String text) {
-    return LocationsService.availableLocations
+    return LocationsService.instance.getLocation()
         .where((location) =>
             location.name.toUpperCase().contains(text.toUpperCase()))
         .toList();

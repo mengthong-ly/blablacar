@@ -8,7 +8,11 @@ import '../model/ride_pref/ride_pref.dart';
 ///   - Curent selected ride preferences.
 ///
 class RidePrefService {
+  // 
+  // attribute
+  // 
   static RidePrefService? _instance;
+  final RidePreferenceRepository repository;
 
   static RidePrefService get instance {
     if (_instance == null) {
@@ -17,7 +21,6 @@ class RidePrefService {
     return _instance!;
   }
 
-  final RidePreferenceRepository repository;
 
   RidePreference? _currentPreference;
 

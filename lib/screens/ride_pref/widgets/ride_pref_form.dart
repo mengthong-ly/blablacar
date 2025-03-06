@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:week_3_blabla_project/screens/ride_pref/bla_custom_location_picker.dart';
+import 'package:week_3_blabla_project/screens/ride_pref/widgets/ride_pref_input_tile.dart';
+import 'package:week_3_blabla_project/widgets/inputs/bla_location_picker.dart';
 
 import '../../../model/ride/locations.dart';
 import '../../../model/ride_pref/ride_pref.dart';
@@ -18,7 +21,8 @@ import '../../../widgets/display/bla_divider.dart';
 /// The form can be created with an existing RidePref (optional).
 ///
 class RidePrefForm extends StatefulWidget {
-  const RidePrefForm( {super.key, required this.initialPreference, required this.onSubmit});
+  const RidePrefForm(
+      {super.key, required this.initialPreference, required this.onSubmit});
 
   final RidePreference? initialPreference;
   final Function(RidePreference preference) onSubmit;
@@ -43,7 +47,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
   @override
   void initState() {
     super.initState();
- 
+
     if (widget.initialPreference != null) {
       RidePreference current = widget.initialPreference!;
       departure = current.departure;
@@ -59,6 +63,36 @@ class _RidePrefFormState extends State<RidePrefForm> {
     }
   }
 
+  void onDeparturePressed() async {
+    // 1- Select a location
+    Location? selectedLocation = await Navigator.of(context)
+        .push<Location>(AnimationUtils.createBottomToTopRoute(BlaLocationPicker(
+      initLocation: departure,
+    )));
+
+    // 2- Update the from if needed
+    if (selectedLocation != null) {
+      setState(() {
+        departure = selectedLocation;
+      });
+    }
+  }
+
+  void onArrivalPressed() async {
+    // 1- Select a location
+    Location? selectedLocation = await Navigator.of(context)
+        .push<Location>(AnimationUtils.createBottomToTopRoute(BlaLocationPicker(
+      initLocation: arrival,
+    )));
+
+    // 2- Update the from if needed
+    if (selectedLocation != null) {
+      setState(() {
+        arrival = selectedLocation;
+      });
+    }
+  }
+
   // ----------------------------------
   // Handle events
   // ----------------------------------
@@ -68,11 +102,42 @@ class _RidePrefFormState extends State<RidePrefForm> {
         AnimationUtils.createBottomToTopRoute(BlaCustomLocationPicker()));
     setState(() {});
   }
+
   void onSelectGoingToLocation() async {
     // showSearch(context: context, delegate: BlaLocationSearchDelegate());
     arrivalLocation = await Navigator.of(context).push<Location>(
         AnimationUtils.createBottomToTopRoute(BlaCustomLocationPicker()));
     setState(() {});
+  }
+
+  void onSubmit() {
+    // 1- Check input validity
+    bool hasDeparture = departure != null;
+    bool hasArrival = arrival != null;
+    bool isValid = hasDeparture && hasArrival;
+
+    if (isValid) {
+      // 2 - Create a  new preference
+      RidePreference newPreference = RidePreference(
+          departure: departure!,
+          departureDate: departureDate,
+          arrival: arrival!,
+          requestedSeats: requestedSeats);
+
+      // 3 - Callback withg the new preference
+      widget.onSubmit(newPreference);
+    }
+  }
+
+  void onSwappingLocationPressed() {
+    setState(() {
+      // We switch only if both departure and arrivate are defined
+      if (departure != null && arrival != null) {
+        Location temp = departure!;
+        departure = Location.copy(arrival!);
+        arrival = Location.copy(temp);
+      }
+    });
   }
 
   // ----------------------------------
