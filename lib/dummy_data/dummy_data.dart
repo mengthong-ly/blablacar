@@ -53,41 +53,49 @@ const List<Location> fakeLocations = [
   Location(name: "Dijon", country: Country.france),
   Location(name: "Le Havre", country: Country.france),
   Location(name: "Brest", country: Country.france),
+
+  // Phnom Penh City
+  Location(name: "Phnom Penh", country: Country.cambodia),
+  Location(name: "Siem Reap", country: Country.cambodia),
+  Location(name: "Battambang", country: Country.cambodia),
+  Location(name: "Sihanoukville", country: Country.cambodia),
+  Location(name: "Kampot", country: Country.cambodia),
+
 ];
 
 // Fake Ride Preferences
-List<RidePref> fakeRidePrefs = [
-  RidePref(
+List<RidePreference> fakeRidePrefs = [
+  RidePreference(
     departure: fakeLocations[0], // London
     departureDate: DateTime.now().add(Duration(days: 1)), // Tomorrow
     arrival: fakeLocations[3], // Paris
     requestedSeats: 2,
   ),
-  RidePref(
+  RidePreference(
     departure: fakeLocations[1], // Manchester
     departureDate: DateTime.now().add(Duration(days: 7)), // Next week
     arrival: fakeLocations[4], // Lyon
     requestedSeats: 3,
   ),
-  RidePref(
+  RidePreference(
     departure: fakeLocations[2], // Birmingham
     departureDate: DateTime.now(), // Today
     arrival: fakeLocations[5], // Marseille
     requestedSeats: 1,
   ),
-  RidePref(
+  RidePreference(
     departure: fakeLocations[0], // London
     departureDate: DateTime.now().add(Duration(days: 1)), // Tomorrow
     arrival: fakeLocations[3], // Paris
     requestedSeats: 2,
   ),
-  RidePref(
+  RidePreference(
     departure: fakeLocations[4], // Manchester
     departureDate: DateTime.now().add(Duration(days: 7)), // Next week
     arrival: fakeLocations[0], // Lyon
     requestedSeats: 3,
   ),
-  RidePref(
+  RidePreference(
     departure: fakeLocations[5], // Birmingham
     departureDate: DateTime.now(), // Today
     arrival: fakeLocations[1], // Marseille
@@ -169,8 +177,9 @@ List<Ride> fakeRides = List.generate(50, (index) {
   int availableSeats = random.nextInt(4) + 1; // Between 1 and 4 seats
   double pricePerSeat = (random.nextDouble() * 20 + 5)
       .roundToDouble(); // Price between 5€ and 25€
-
+  RidesFilter filter = RidesFilter( acceptPet: random.nextBool()); 
   return Ride(
+    filter: filter,
     departureLocation: departureLocation,
     departureDate: departureTime,
     arrivalLocation: arrivalLocation,
