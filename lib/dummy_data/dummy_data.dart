@@ -177,8 +177,9 @@ List<Ride> fakeRides = List.generate(50, (index) {
   int availableSeats = random.nextInt(4) + 1; // Between 1 and 4 seats
   double pricePerSeat = (random.nextDouble() * 20 + 5)
       .roundToDouble(); // Price between 5€ and 25€
-
+  RidesFilter filter = RidesFilter( acceptPet: random.nextBool()); 
   return Ride(
+    filter: filter,
     departureLocation: departureLocation,
     departureDate: departureTime,
     arrivalLocation: arrivalLocation,

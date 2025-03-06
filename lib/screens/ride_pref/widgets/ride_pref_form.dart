@@ -69,6 +69,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
         .push<Location>(AnimationUtils.createBottomToTopRoute(BlaLocationPicker(
       initLocation: departure,
     )));
+    print(selectedLocation);
 
     // 2- Update the from if needed
     if (selectedLocation != null) {
@@ -117,6 +118,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
     bool isValid = hasDeparture && hasArrival;
 
     if (isValid) {
+      print(isValid);
       // 2 - Create a  new preference
       RidePreference newPreference = RidePreference(
           departure: departure!,

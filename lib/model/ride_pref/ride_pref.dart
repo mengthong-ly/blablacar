@@ -24,3 +24,9 @@ class RidePreference {
         'requestedSeats: $requestedSeats)';
   }
 }
+
+class RidesFilter {
+  final bool acceptPet;
+
+  RidesFilter({this.acceptPet = false});
+}
